@@ -1,0 +1,12 @@
+saved_models folder contents
+
+- imputer.joblib: Median imputer fitted on training features
+- scaler.joblib: StandardScaler fitted on training features
+- lgbm_model.joblib: Trained LightGBM regressor (GPU if available)
+- xgb_gpu_model.joblib: Trained XGBoost regressor (gpu_hist)
+- metrics.json: MAE/MSE/RMSE/R2 on test set
+- training_3090_details.txt: JSON summary (params, shapes, timestamp)
+
+Produced by: GBDT_3090_fixed.ipynb (ordered, quiet, early-stopping)
+Data source: dataset_pruned.csv
+Notes: This is the current default output location; older runs may have artifacts/ or artifacts_3090/

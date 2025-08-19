@@ -1,0 +1,9 @@
+Data rows: 1492
+Total columns: 2076
+Label column: weight_kg
+Learned features (C-ResNet50): 2048 columns (c_resnet50_feature_0..c_resnet50_feature_2047)
+2D features (16):
+projected_area,contour_perimeter,width_of_broiler,height_of_broiler,convex_hull_area,minor_axis_length,major_axis_length,eccentricity,convex_hull_perimeter,approximate_contour_area,approximate_contour_perimeter,ratio_contour_area_to_boundary_rectangular_area,ratio_contour_area_to_convex_hull_area,maximum_convexity_defect,sum_of_convexity_defects,diameter_of_circle_equal_to_contour_area
+3D features (9 + approx_volume):
+approximate_volume,maximum_depth,minimum_depth,average_depth,depth_range,depth_standard_deviation,depth_sum,distance_minimum_depth_minus_average_depth,distance_maximum_depth_minus_average_depth
+Other metadata columns: none

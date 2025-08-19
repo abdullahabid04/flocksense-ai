@@ -1,0 +1,35 @@
+GBDT training details (from “An Improved Method for Broiler Weight Estimation Integrating Multi-Feature with Gradient Boosting Decision Tree”)
+
+Summary
+- Data/feature dimensions: m = 1198 samples; n = 25 (AF), 2048 (LF), 2073 (AF+LF).
+- Algorithm: squared-loss gradient boosting trees; initialize with mean; fit negative gradients; learning rate ρ; K trees.
+- Implementations: LightGBM 3.3.0 and XGBoost 1.3.3.
+- Hyperparameters:
+  - LightGBM: n_estimators=4000, learning_rate=0.1, num_leaves=15, max_depth=5, min_child_samples=15, min_child_weight=0.01, subsample=0.8, colsample_bytree=1.
+  - XGBoost: n_estimators=2000, learning_rate=0.1, max_depth=5, objective='reg:linear', min_child_weight=1, max_delta_step=0, subsample=0.8, colsample_bytree=0.7, colsample_bylevel=1, reg_alpha=0, reg_lambda=1, scale_pos_weight=1.
+- Note: Normalizing features improves performance.
+
+Verbatim excerpts
+
+2.5. Broiler Weight Estimation Based on Gradient Boosting Decision Tree
+“The 25 artiﬁcial features extracted from the target image and the 2048 learned features extracted by C-Resnet50 are numerical features. To efﬁciently use the features for quick and accurate weight estimation of broiler chickens, we used the gradient boosting decision tree (GBDT) for modeling. The weight estimation experiment of broilers adopted the LightGBM model [29] and the XGBoost model [30], which implement the GBDT algorithm for training and prediction. ... The GBDT is an iterative decision tree algorithm in which each tree is ﬁtted with a negative gradient. Trained with the extracted features, the sum of the conclusions of all trees in the algorithm is exactly the body weight of broiler chickens. ... In this study, m = 1198. When using only artiﬁcial features, the dimension of n is 25. When just using learned features, the dimension of n is 2048. With both artiﬁcial features and learned features utilized, the dimension of n is 2073.”
+
+Algorithm 1 GBDT training with fusion features for broiler weight estimation (excerpt)
+“INPUT:
+S = { Xmn, Ym }: Training set, Xmn is fusion features with 2073 dimension, Ym is body weight
+K: The number of regression decision trees
+ρ: The learning rate
+
+OUTPUT: FK(x): Trained gradient boosting regression tree
+1. Set squared loss function
+2. Initialize f0(X) = Y, where Y is the average weight, and m represents the number of samples.
+3. for each tree k in K do:
+4. Calculate the negative gradient according to the loss function.
+...
+7. Obtain the prediction of the kth regression decision tree and update result.”
+
+Implementations and hyperparameters
+“Two library functions (LGBM and XGB) were implemented the GBDT algorithm. We used LGBM python package with version 3.3.0 from the GitHub repository of Microsoft et al. [32] and the XGB package with version 1.3.3 from Dmlc et al. [33]. Both models kept identical hyperparameters in all experiments: for LGBM training, an n_estimators of 4000 and a learning rate of 0.1 were used. Other parameters were set as num_leaves = 15, max_depth = 5, min_child_samples = 15, min_child_weight = 0.01, subsample = 0.8, and colsample_bytree = 1. For the XGB training, we trained the models with an n_estimators of 2000 and a learning rate of 0.1. Other parameters were set as max_depth = 5, learning_rate = 0.1, objective = ‘reg:linear’, min_child_weight = 1, max_delta_step = 0, subsample = 0.8, colsample_bytree = 0.7, colsample_bylevel = 1, reg_alpha = 0, reg_lambda = 1, and scale_pos_weight = 1.”
+
+On feature normalization
+“...the combination of AF and GBDT (LGBM/XGB) outperformed the combination of AF and ANN_3... Moreover, compared with the approach of directly entering the extracted features into the model for training and learning, normalizing features in advance can achieve more satisfactory performance ...”

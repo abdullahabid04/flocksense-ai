@@ -1,0 +1,239 @@
+Table 1. The extracted artiﬁcial features and identiﬁers.
+
+Feature
+
+1. Projected area
+2. Contour perimeter
+3. Width of the broiler
+4. Height of the broiler
+5. Convex hull area
+6. Minor axis length
+7. Major axis length
+8. Eccentricity
+9. Convex hull perimeter
+10. Approximate contour area
+11. Approximate contour perimeter
+12. Ratio of contour area to boundary rectangular area
+13. Ratio of contour area to convex hull area
+
+14. Maximum convexity defect
+15. Sum of the convexity defects
+16. Diameter of a circle equaled to the contour area
+17. Approximate volume
+18. Maximum depth
+19. Minimum depth
+20. Average depth
+21. Depth range
+22. Depth standard deviation
+23. Depth sum
+24. Distance between the minimum depth and the average depth
+25. Distance between the maximum depth and the average depth
+
+
+Table 2. Structure of C-Resnet50 with extended FC layer.
+
+Stages 0–1
+
+Conv(7 × 7,64, stride 2)
+Max pool(stride 2)
+
+Conv(1 × 1,64)
+Conv(3 × 3,64)
+Conv(1 × 1,256)
+×1
+×3
+
+Stages 2–3
+
+Conv(1 × 1,128)
+Conv(3 × 3,128)
+Conv(1 × 1,512)
+×4
+
+Conv(1 × 1,256)
+Conv(3 × 3,256)
+Conv(1 × 1,1024)
+×6
+
+Stages 4–5
+
+Conv(1 × 1,512)
+Conv(3 × 3,512)
+Conv(1 × 1,2048)
+×3
+
+Average pool, ﬂatten
+FC_0 (1024)
+FC_1(512)
+FC_2(1)
+×1
+
+
+Table 3. The segmentation performance of different types of data on Mask RCNN in test set.
+
+Training Data
+AP@.5IoU
+AP@.75IoU
+AP@.95IoU
+AR
+Images with a single broiler 1.000 1.000 0.894 0.900
+Images with multiple broilers 1.000 0.993 0.872 0.881
+Mixed images 0.996 0.989 0.861 0.872
+
+
+Table 4. Results acquired from all artiﬁcial features in different models in the test set, and the optimal results are highlighted in bold.
+
+Feature + Model
+
+AF + ANN_1
+AF + ANN_2
+AF + ANN_3
+AF + LGBM
+AF + LGBM
+AF + XGB
+AF + XGB
+
+Normalization MAE ↓
+√ 0.144367
+√ 0.141981
+√ 0.139806
+√ 0.129030
+0.130942
+0.130452
+0.130262
+
+MSE ↓
+0.037025
+0.036193
+0.034603
+0.029747
+0.030435
+0.029916
+0.029699
+
+RMSE ↓
+0.192419
+0.190245
+0.186019
+0.172475
+0.174458
+0.172962
+0.172333
+
+R2 ↑
+0.014636
+0.074835
+0.295418
+0.555427
+0.545145
+0.552913
+0.556155
+
+
+Table 5. Architectures of ANN_1, ANN_2, and ANN_3.
+
+ANN_1
+FC_layer_0 (input,19)
+ReLU_0
+FC_layer_1 (19, 1)
+
+ANN_2
+FC_layer_0 (input, 64)
+ReLU_0
+FC_layer_1 (64, 32)
+ReLU_1
+FC_layer_2 (32, 1)
+
+ANN_3
+FC_layer_0 (input, 1024)
+LayerNorm (1024)
+ReLU_0
+FC_layer_1 (1024, 512)
+LayerNorm (512)
+ReLU_1
+FC_layer_2 (512, 1)
+
+
+Table 6. Comparison of different features for body weight estimation in the test set, and the optimal results are highlighted in bold.
+
+Model
+
+Feature
+
+XGB
+
+LGBM
+
+Existing features
+Proposed features
+Artiﬁcial features
+
+Existing features
+Proposed features
+Artiﬁcial features
+
+MAE ↓
+0.159492
+0.130873
+0.130452
+
+0.159246
+0.129115
+0.129030
+
+MSE ↓
+0.043444
+0.030965
+0.029916
+
+0.043391
+0.029969
+0.029747
+
+RMSE ↓
+0.208432
+0.175970
+0.172962
+
+0.208305
+0.173117
+0.172475
+
+R2 ↑
+0.350732
+0.537227
+0.552913
+
+0.351526
+0.552112
+0.555427
+
+
+Table 7. Performance of different models in the test set with learned features alone and with both artiﬁcial and learned features as input, and the optimal results are highlighted in bold.
+
+Feature
+
+Learned features
+
+Artiﬁcial and
+learned features
+(Ours)
+
+Model
+
+ANN_3
+XGB (Ours)
+LGBM (Ours)
+
+ANN_3
+XGB (Ours)
+LGBM (Ours)
+
+MAE ↓
+0.103644
+0.094152
+0.098707
+
+0.107128
+0.093358
+0.093034

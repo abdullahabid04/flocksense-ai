@@ -1,0 +1,22 @@
+Artifacts and model output locations
+
+- artifacts/
+  - Created by earlier CPU notebook runs
+  - Contains: scaler.joblib, lgbm_model.joblib, xgb_model.joblib, metrics.json
+
+- artifacts_3090/
+  - Created by GPU (GBDT_3090.ipynb) runs
+  - Contains: imputer.joblib, scaler.joblib, lgbm_model.joblib, xgb_gpu_model.joblib, metrics.json
+
+- saved models/
+  - Created by a prior GPU notebook cell
+  - Contains: imputer.joblib, scaler.joblib, lgbm_model.joblib, xgb_gpu_model.joblib, metrics.json, training_3090_details.txt
+  - Note: folder name includes a space
+
+- saved_models/
+  - Current default output from GBDT_3090_fixed.ipynb
+  - Contains: imputer.joblib, scaler.joblib, lgbm_model.joblib, xgb_gpu_model.joblib, metrics.json, training_3090_details.txt
+  - Preferred folder (no space in name)
+
+Are we still saving to artifacts?
+- No. The fixed notebook saves to saved_models/ by default. Legacy folders (artifacts/, artifacts_3090/, and saved models/) may still exist from earlier runs but are not used by the new notebook.
