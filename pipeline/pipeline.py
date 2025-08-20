@@ -143,7 +143,7 @@ class BroilerWeightPipeline:
 
         return features_scaled
 
-    def predict(self, features: np.ndarray, model_type: str = None) -> np.ndarray:
+    def predict(self, features: np.ndarray, model_type: str = None) -> float:
         """
         Make weight predictions using the specified model.
 
@@ -170,9 +170,12 @@ class BroilerWeightPipeline:
                              f"Available: {[k for k in self.artifacts.keys() if k.endswith('_model')]}")
 
         model = self.artifacts[model_key]
+
         predictions = model.predict(features)
 
-        return predictions
+        prediction = float(np.asarray(predictions).reshape(-1)[0])
+
+        return prediction
 
     def predict_from_images(self, rgb_path: str, depth_path: str,
                             model_type: str = None) -> float:
@@ -208,7 +211,7 @@ class BroilerWeightPipeline:
         features_preprocessed = self.preprocess_features(features)
         prediction = self.predict(features_preprocessed, model_type)
 
-        return float(prediction[0])
+        return float(prediction)
 
     def predict_from_directory(self, rgb_dir: str, depth_dir: str,
                                model_type: str = None) -> pd.DataFrame:

@@ -81,7 +81,6 @@ class FeatureExtractor2D:
             'convex_hull_area': 0.0,
             'minor_axis_length': 0.0,
             'major_axis_length': 0.0,
-            'eccentricity': 0.0,
             'convex_hull_perimeter': 0.0,
             'approx_area': 0.0,
             'approx_perimeter': 0.0,

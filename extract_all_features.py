@@ -142,7 +142,6 @@ def extract_2d_features_from_image(png_path: str) -> Dict[str, float]:
             'convex_hull_area': 0.0,
             'minor_axis_length': 0.0,
             'major_axis_length': 0.0,
-            'eccentricity': 0.0,
             'convex_hull_perimeter': 0.0,
             'approx_area': 0.0,
             'approx_perimeter': 0.0,

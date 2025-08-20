@@ -110,11 +110,11 @@ def extract_geometric_features(contour: np.ndarray, pixel_to_mm: float = 1.0) ->
         (_, (major, minor), angle) = cv2.fitEllipse(contour)
         features['minor_axis_length'] = float(minor * pixel_to_mm)
         features['major_axis_length'] = float(major * pixel_to_mm)
-        features['eccentricity'] = np.sqrt(1 - (minor / major) ** 2) if major > 0 else 0.0
+        # features['eccentricity'] = np.sqrt(1 - (minor / major) ** 2) if major > 0 else 0.0
     else:
         features['minor_axis_length'] = 0.0
         features['major_axis_length'] = 0.0
-        features['eccentricity'] = 0.0
+        # features['eccentricity'] = 0.0
     
     # 9. Convex hull perimeter
     hull_perimeter = cv2.arcLength(hull, True) * pixel_to_mm
