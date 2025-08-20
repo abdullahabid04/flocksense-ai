@@ -1,0 +1,46 @@
+
+# Broiler Weight Estimation Pipeline Configuration
+
+# Data paths
+data:
+  rgb_dir: "data/rgb"
+  depth_dir: "data/depth"
+  dataset_csv: "models/dataset_pruned.csv"
+
+# Model paths
+model:
+  artifacts_dir: "models/saved_models 7 55"
+  lgbm_model: "lgbm_model.joblib"
+  xgb_model: "xgb_gpu_model.joblib"
+  scaler: "scaler.joblib"
+  imputer: "imputer.joblib"
+
+# Preprocessing
+preprocessing:
+  rgb:
+    resize: [224, 224]
+    normalize_mean: [0.485, 0.456, 0.406]
+    normalize_std: [0.229, 0.224, 0.225]
+  depth:
+    scale_factor: 1.0
+    fill_missing: 0.0
+    max_depth: 2000.0
+
+# Training
+training:
+  test_size: 0.3
+  random_state: 42
+  validation_split: 0.2
+  batch_size: 32
+  
+# Feature extraction
+features:
+  use_2d: true
+  use_3d: true
+  use_resnet: true
+  resnet_model: "resnet50"
+  
+# Inference
+inference:
+  model_type: "lgbm"  # or "xgb"
+  batch_size: 16
